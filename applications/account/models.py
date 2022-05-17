@@ -1,7 +1,6 @@
+import uuid
 from django.db import models
 from applications.ship.models import Ship
-
-import uuid
 from applications.generic_app.enums import Roles
 from django.contrib.auth.models import (
     BaseUserManager as BUM,

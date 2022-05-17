@@ -1,12 +1,10 @@
 from typing import Optional
-
 from django.db import transaction
-
-from applications.generic_app.services import model_update
-from applications.generic_app.enums import Roles
-from applications.generic_app.utils import create_random_word
 from applications.account.models import User
+from applications.generic_app.enums import Roles
 from applications.account.selectors import get_user
+from applications.generic_app.services import model_update
+from applications.generic_app.utils import create_random_word
 
 
 def user_create(

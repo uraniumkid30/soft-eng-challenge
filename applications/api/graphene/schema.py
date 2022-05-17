@@ -1,10 +1,13 @@
 import graphene
 
 from applications.account.schema import UserGrapheneQuery
+from applications.ship.schema import ShipGrapheneQuery, MotherShipGrapheneQuery
 
 
 graphene_querires = [
     UserGrapheneQuery,
+    ShipGrapheneQuery,
+    MotherShipGrapheneQuery,
 ]
 graphene_mutations = []
 
@@ -17,4 +20,4 @@ class Mutation(graphene.ObjectType):
     pass
 
 
-schema = graphene.Schema(query=Query)  # , mutation=Mutation)
+schema = graphene.Schema(query=Query)

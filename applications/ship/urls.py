@@ -1,6 +1,5 @@
-from django.urls import include, path
-
 from django.conf import settings
+from django.urls import include, path
 from rest_framework_nested import routers
 from .views import MotherShipViewset, ShipViewset
 

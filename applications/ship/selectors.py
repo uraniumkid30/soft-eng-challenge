@@ -39,7 +39,10 @@ class MotherShipSelector:
     @classmethod
     def mothership_get(cls, *, filters=None, pk=None) -> MotherShip:
         filters = filters or {}
-        qs = MotherShip.objects.filter(pk=pk)
+        if pk:
+            qs = MotherShip.objects.filter(pk=pk)
+        else:
+            qs = MotherShip.objects.filter()
         return MotherShipFilter(filters, qs).qs.first()
 
     @classmethod
@@ -86,7 +89,10 @@ class ShipSelector:
         if ships is None:
             ships = Ship.objects
         filters = filters or {}
-        qs = ships.filter(pk=pk)
+        if pk:
+            qs = ships.filter(pk=pk)
+        else:
+            qs = ships.filter()
         return ShipFilter(filters, qs).qs.first()
 
     @classmethod

@@ -17,6 +17,7 @@ class BaseUserManager(BUM):
         password: str = None,
         first_name: str = None,
         last_name: str = None,
+        name: str = None,
     ):
         if not username:
             raise ValueError("Users must have an email address")
@@ -31,6 +32,9 @@ class BaseUserManager(BUM):
 
         if last_name:
             user.last_name = last_name
+
+        if name:
+            user.name = name
 
         if password is not None:
             user.set_password(password)
@@ -49,6 +53,7 @@ class BaseUserManager(BUM):
         password: str = None,
         first_name: str = None,
         last_name: str = None,
+        name: str = None,
     ):
         user: User = self.create_user(
             username=username,
@@ -60,6 +65,9 @@ class BaseUserManager(BUM):
 
         if last_name:
             user.last_name = last_name
+
+        if name:
+            user.name = name
         user.role = Roles.OFFICER
         user.is_superuser = True
         user.is_staff = True
@@ -75,9 +83,10 @@ class User(AbstractUser):
     role = models.PositiveSmallIntegerField(
         choices=Roles.choices(), default=Roles.CREWMEMBER
     )
+    name = models.CharField(max_length=255, blank=True, null=True)
     ship = models.ForeignKey(
         to=Ship,
-        related_name="user_ships",
+        related_name="members",
         on_delete=models.CASCADE,
         blank=True,
         null=True,
@@ -88,6 +97,14 @@ class User(AbstractUser):
             self.role = Roles.OFFICER
         else:
             self.role = Roles.CREWMEMBER
+        return self
+
+    def set_name(self):
+        if not self.name:
+            if all((self.first_name, self.last_name)):
+                self.name = f"{self.first_name} {self.last_name}"
+            else:
+                self.name = f"{self.username}"
         return self
 
     class Meta(AbstractUser.Meta):

@@ -16,6 +16,7 @@ def user_create(
     password: Optional[str] = None,
     first_name: Optional[str] = None,
     last_name: Optional[str] = None,
+    name: Optional[str] = None,
 ) -> User:
     """Creates User"""
     user = User.objects.create_user(
@@ -24,6 +25,7 @@ def user_create(
         password=password,
         first_name=first_name,
         last_name=last_name,
+        name=name,
     )
 
     return user
@@ -31,7 +33,7 @@ def user_create(
 
 @transaction.atomic
 def user_update(*, user: User, data) -> User:
-    non_side_effect_fields = ["first_name", "last_name"]
+    non_side_effect_fields = ["first_name", "last_name", "name"]
 
     user, has_updated = model_update(
         instance=user, fields=non_side_effect_fields, data=data
@@ -47,11 +49,13 @@ def create_collection_of_user_data(number_of_users: int) -> list:
         last_name = create_random_word(10)
         first_name = create_random_word(10)
         username = f"{first_name}{last_name}"
+        name = f"{first_name} {last_name}"
         data = {
             "username": username,
             "role": Roles.CREWMEMBER,
             "first_name": first_name,
             "last_name": last_name,
+            "name": name,
         }
         user = get_user(**data)
         if user is None:

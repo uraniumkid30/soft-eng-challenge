@@ -29,9 +29,3 @@ def get_user(**filters) -> User:
         user = None
     finally:
         return user
-
-
-def get_users(**filters) -> QuerySet[User]:
-    users = User.objects.filter(**filters)
-
-    return users

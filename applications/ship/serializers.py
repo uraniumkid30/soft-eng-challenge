@@ -40,10 +40,10 @@ ship_fields = [
 class MotherShipOutputSerializer(serializers.ModelSerializer):
     class Meta:
         model = MotherShip
-        fields = ship_fields
+        fields = ship_fields + ["number_of_ships_owned"]
 
 
 class ShipOutputSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ship
-        fields = ship_fields
+        fields = ship_fields + ["number_of_crew_members_owned"]

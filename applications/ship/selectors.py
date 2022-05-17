@@ -29,7 +29,7 @@ class MotherShipSelector:
         return remaining_capacity >= ship_number
 
     @classmethod
-    def mothership_list(*, filters=None, pk=None) -> QuerySet[MotherShip]:
+    def mothership_list(cls, *, filters=None) -> QuerySet[MotherShip]:
         filters = filters or {}
 
         qs = MotherShip.objects.all()

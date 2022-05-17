@@ -1,0 +1,40 @@
+version: "3.9"
+   
+services:
+  # db:
+  #   image: postgres
+  #   container_name: mothership_api_db
+  #   volumes:
+  #     - ./data/db:/var/lib/postgresql/data
+  #   environment:
+  #     - POSTGRES_DB=postgres
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=postgres
+  db:
+    image: nouchka/sqlite3:latest
+    container_name: mothership_api_db
+    volumes:
+      - ../data/db:/root/db
+    environment:
+      - SQLITE3_DB=development_database.sqlite3
+  api:
+    container_name: mothership_api
+    build: .
+    command: ./scripts/local/start.sh
+    volumes:
+      - ./:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_started
+
+  api-docs:
+    image: swaggerapi/swagger-ui
+    container_name: mothership_api_docs
+    ports:
+      - "8001:8080"
+    volumes:
+      - ./openapi.yaml:/openapi.yaml
+    environment:
+      SWAGGER_JSON: /openapi.yaml

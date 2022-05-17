@@ -1,6 +1,6 @@
-from graphene_django.types import DjangoObjectType
 from .models import User
 from graphene import relay
+from graphene_django.types import DjangoObjectType
 
 
 class UserType(DjangoObjectType):

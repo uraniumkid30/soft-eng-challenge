@@ -1,15 +1,10 @@
-from typing import Sequence, Type, TYPE_CHECKING
-
-from importlib import import_module
-
-from django.conf import settings
-
 from django.contrib import auth
-
+from django.conf import settings
+from importlib import import_module
+from typing import Sequence, Type, TYPE_CHECKING
 from rest_framework.permissions import IsAuthenticated, BasePermission
-from rest_framework.authentication import SessionAuthentication, BaseAuthentication
-
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+from rest_framework.authentication import SessionAuthentication, BaseAuthentication
 
 
 def get_auth_header(headers):

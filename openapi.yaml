@@ -1,0 +1,651 @@
+openapi: 3.0.3
+info:
+  title: ''
+  version: 0.0.0
+paths:
+  /api/auth/jwt/login/:
+    post:
+      operationId: api_auth_jwt_login_create
+      description: |-
+        API View that receives a POST with a user's username and password.
+
+        Returns a JSON Web Token that can be used for authenticated requests.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JSONWebToken'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/JSONWebToken'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/JSONWebToken'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JSONWebToken'
+          description: ''
+  /api/auth/jwt/logout/:
+    post:
+      operationId: api_auth_jwt_logout_create
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/auth/session/login/:
+    post:
+      operationId: api_auth_session_login_create
+      description: Following https://docs.djangoproject.com/en/3.1/topics/auth/default/#how-to-log-a-user-in
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Input'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Input'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Input'
+        required: true
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Input'
+          description: ''
+  /api/auth/session/logout/:
+    get:
+      operationId: api_auth_session_logout_retrieve
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    post:
+      operationId: api_auth_session_logout_create
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/users/:
+    get:
+      operationId: api_users_retrieve
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Output'
+          description: ''
+  /api/vessels/motherships/:
+    get:
+      operationId: api_vessels_motherships_list
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MotherShipOutput'
+          description: ''
+    post:
+      operationId: api_vessels_motherships_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MotherShipOutput'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MotherShipOutput'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MotherShipOutput'
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MotherShipOutput'
+          description: ''
+  /api/vessels/motherships/{motherships_pk}/ships/:
+    get:
+      operationId: api_vessels_motherships_ships_list
+      parameters:
+      - in: path
+        name: motherships_pk
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ShipOutput'
+          description: ''
+  /api/vessels/motherships/{motherships_pk}/ships/{id}/:
+    get:
+      operationId: api_vessels_motherships_ships_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Ship - Setting.
+        required: true
+      - in: path
+        name: motherships_pk
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShipOutput'
+          description: ''
+    delete:
+      operationId: api_vessels_motherships_ships_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Ship - Setting.
+        required: true
+      - in: path
+        name: motherships_pk
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/vessels/motherships/{motherships_pk}/ships/{id}/add_crew_member/:
+    put:
+      operationId: api_vessels_motherships_ships_add_crew_member_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Ship - Setting.
+        required: true
+      - in: path
+        name: motherships_pk
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShipOutput'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ShipOutput'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ShipOutput'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShipOutput'
+          description: ''
+  /api/vessels/motherships/{motherships_pk}/ships/{id}/swap_user/:
+    put:
+      operationId: api_vessels_motherships_ships_swap_user_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Ship - Setting.
+        required: true
+      - in: path
+        name: motherships_pk
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShipOutput'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ShipOutput'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ShipOutput'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShipOutput'
+          description: ''
+  /api/vessels/motherships/{id}/:
+    get:
+      operationId: api_vessels_motherships_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this MotherShip - Setting.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MotherShipOutput'
+          description: ''
+    delete:
+      operationId: api_vessels_motherships_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this MotherShip - Setting.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/vessels/motherships/{id}/add_ships/:
+    put:
+      operationId: api_vessels_motherships_add_ships_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this MotherShip - Setting.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MotherShipOutput'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MotherShipOutput'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MotherShipOutput'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MotherShipOutput'
+          description: ''
+  /schema/:
+    get:
+      operationId: schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - schema
+      security:
+      - jwtAuth: []
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+components:
+  schemas:
+    Input:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+      required:
+      - email
+      - password
+    JSONWebToken:
+      type: object
+      description: |-
+        Serializer class used to validate a username and password.
+
+        'username' is identified by the custom UserModel.USERNAME_FIELD.
+
+        Returns a JSON Web Token that can be used to authenticate later calls.
+      properties:
+        password:
+          type: string
+          writeOnly: true
+        token:
+          type: string
+          readOnly: true
+        username:
+          type: string
+          writeOnly: true
+      required:
+      - password
+      - token
+      - username
+    MotherShipOutput:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+          maxLength: 255
+        mmsi:
+          type: string
+          nullable: true
+          maxLength: 255
+        imo:
+          type: string
+          nullable: true
+          maxLength: 255
+        eni:
+          type: string
+          nullable: true
+          maxLength: 255
+        country_iso:
+          type: string
+          nullable: true
+          maxLength: 255
+        country_name:
+          type: string
+          nullable: true
+          maxLength: 255
+        gross_tonnage:
+          type: integer
+          nullable: true
+        number_of_ships_owned:
+          type: string
+          readOnly: true
+      required:
+      - number_of_ships_owned
+    Output:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        name:
+          type: string
+          nullable: true
+          maxLength: 255
+        role:
+          $ref: '#/components/schemas/RoleEnum'
+        ship:
+          type: integer
+          nullable: true
+      required:
+      - id
+      - username
+    RoleEnum:
+      enum:
+      - 1
+      - 2
+      type: integer
+    ShipOutput:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+          maxLength: 255
+        mmsi:
+          type: string
+          nullable: true
+          maxLength: 255
+        imo:
+          type: string
+          nullable: true
+          maxLength: 255
+        eni:
+          type: string
+          nullable: true
+          maxLength: 255
+        country_iso:
+          type: string
+          nullable: true
+          maxLength: 255
+        country_name:
+          type: string
+          nullable: true
+          maxLength: 255
+        gross_tonnage:
+          type: integer
+          nullable: true
+        number_of_crew_members_owned:
+          type: string
+          readOnly: true
+      required:
+      - number_of_crew_members_owned
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

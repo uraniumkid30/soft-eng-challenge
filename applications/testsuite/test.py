@@ -1,6 +1,6 @@
 from django.test import TestCase
-from rest_framework.test import APIRequestFactory, APIClient
 from applications.account.services import user_create
+from rest_framework.test import APIRequestFactory, APIClient
 
 
 class GenericTest(TestCase):

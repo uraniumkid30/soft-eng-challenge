@@ -16,7 +16,7 @@ class CustomExceptions:
 
     @classmethod
     def _raise_empty_result_error(cls, custom_message):
-        raise ObjectDoesNotExist(custom_message)
+        raise EmptyResultSet(custom_message)
 
 
 class MotherShipExceptions(CustomExceptions):

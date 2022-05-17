@@ -1,6 +1,6 @@
-from calendar import SATURDAY
-from django.db.models.fields import PositiveSmallIntegerField
 from django.utils.translation import gettext as _
+from django.db.models.fields import PositiveSmallIntegerField
+
 
 
 def translate(name):

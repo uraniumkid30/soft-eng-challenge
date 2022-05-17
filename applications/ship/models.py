@@ -1,12 +1,12 @@
 import uuid
-from django.db import models
 from decimal import Decimal
+from django.db import models
 from applications.generic_app.models import BaseModel
 
 
 class ShipBaseModel(BaseModel):
     uuid = models.UUIDField(default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=255, blank=True, null=True)
+    name = models.CharField(max_length=255, unique=True)
     mmsi = models.CharField(max_length=255, blank=True, null=True)
     imo = models.CharField(max_length=255, blank=True, null=True)
     eni = models.CharField(max_length=255, blank=True, null=True)

@@ -1,7 +1,7 @@
-from graphene import relay, ObjectType
 import graphene
 from .models import User
 from .types import UserType
+from graphene import ObjectType
 
 
 class UserGrapheneQuery(ObjectType):

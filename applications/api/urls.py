@@ -1,7 +1,7 @@
 from django.urls import path, include
-from django.views.decorators.csrf import csrf_exempt
 from graphene_django.views import GraphQLView
 from applications.api.graphene.schema import schema
+from django.views.decorators.csrf import csrf_exempt
 
 urlpatterns = [
     path("auth/", include(("applications.authentication.urls", "authentication"))),

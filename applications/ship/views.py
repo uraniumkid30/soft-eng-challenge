@@ -20,9 +20,13 @@ from applications.ship.models import Ship, MotherShip
 from applications.api.pagination import CustomPaginator
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 
 class MotherShipViewset(viewsets.ViewSet):
+    authentication_classes = (JSONWebTokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
     queryset = MotherShip.objects.all()
     serializer_class = MotherShipOutputSerializer
 
@@ -79,6 +83,8 @@ class MotherShipViewset(viewsets.ViewSet):
 
 
 class ShipViewset(viewsets.ViewSet):
+    authentication_classes = (JSONWebTokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
     queryset = Ship.objects.all()
     serializer_class = ShipOutputSerializer
 

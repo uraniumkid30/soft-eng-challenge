@@ -11,12 +11,14 @@ class GenericTest(TestCase):
     def setUp(self):
         self.factory = APIRequestFactory()
         self.client = APIClient()
-        self.user = user_create(username="testuser", password="testing")
+        self.user = user_create(
+            username="maintestuser", password="testing", name="maintest user"
+        )
         self.user.save()
 
     def _require_login(self):
         """Allows client to automatically login"""
-        self.client.login(username="testuser", password="testing")
+        self.client.login(username="maintestuser", password="testing")
 
 
 class require_login(object):

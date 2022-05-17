@@ -32,7 +32,7 @@ class ShipBaseModel(BaseModel):
 class MotherShip(ShipBaseModel):
     @property
     def number_of_ships_owned(self):
-        return self.mother_ship_children.count()
+        return self.ships.count()
 
     class Meta:
         verbose_name = "MotherShip - Setting"
@@ -42,7 +42,7 @@ class MotherShip(ShipBaseModel):
 class Ship(ShipBaseModel):
     mother_ship = models.ForeignKey(
         to=MotherShip,
-        related_name="mother_ship_children",
+        related_name="ships",
         on_delete=models.CASCADE,
         blank=True,
         null=True,
@@ -50,7 +50,7 @@ class Ship(ShipBaseModel):
 
     @property
     def number_of_crew_members_owned(self):
-        return self.user_ships.count()
+        return self.members.count()
 
     class Meta:
         verbose_name = "Ship - Setting"

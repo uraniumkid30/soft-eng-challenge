@@ -4,10 +4,10 @@ from applications.generic_app.models import BaseModel
 
 
 class BaseConfiguration(BaseModel):
-    maximum_ship_number = models.IntegerField(blank=True, null=True)
     ship_to_mothership_number = models.IntegerField(blank=True, null=True)
-    maximum_crewmember_number = models.IntegerField(blank=True, null=True)
+    maximum_ship_to_mothership_capacity = models.IntegerField(blank=True, null=True)
     crewmember_to_ship_number = models.IntegerField(blank=True, null=True)
+    maximum_crewmember_to_ship_capacity = models.IntegerField(blank=True, null=True)
 
     class Meta:
         verbose_name = "BaseConfigration - Setting"
@@ -36,25 +36,25 @@ class BusinessConfiguration:
             return BaseConfiguration.objects.all().first()
 
     @property
-    def maximum_ship_number(self):
-        if self.is_model_configuration_available:
-            return self.base_configuration.maximum_ship_number
-        return settings.MAXIMUM_SHIP_NUMBER
-
-    @property
     def ship_to_mothership_number(self):
         if self.is_model_configuration_available:
             return self.base_configuration.ship_to_mothership_number
         return settings.SHIP_TO_MOTHERSHIP_NUMBER
 
     @property
-    def maximum_crewmember_number(self):
+    def maximum_ship_to_mothership_capacity(self):
         if self.is_model_configuration_available:
-            return self.base_configuration.maximum_crewmember_number
-        return settings.MAXIMUM_CREWMEMBER_NUMBER
+            return self.base_configuration.maximum_ship_to_mothership_capacity
+        return settings.MAXIMUM_SHIP_TO_MOTHERSHIP_CAPACITY
 
     @property
     def crewmember_to_ship_number(self):
         if self.is_model_configuration_available:
             return self.base_configuration.crewmember_to_ship_number
         return settings.CREWMEMBER_TO_SHIP_NUMBER
+
+    @property
+    def maximum_crewmember_to_ship_capacity(self):
+        if self.is_model_configuration_available:
+            return self.base_configuration.maximum_crewmember_to_ship_capacity
+        return settings.MAXIMUM_CREWMEMBER_TO_SHIP_CAPACITY

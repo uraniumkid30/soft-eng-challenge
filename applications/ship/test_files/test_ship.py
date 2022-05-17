@@ -3,9 +3,8 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from applications.testsuite.test import GenericTest, MetaTester
-from applications.ship.models import Ship, MotherShip
 from applications.account.services import user_create
+from applications.testsuite.test import GenericTest, MetaTester
 from applications.ship.services import ShipService, MotherShipService
 from applications.ship.selectors import MotherShipSelector, ShipSelector
 from applications.ship.serializers import (

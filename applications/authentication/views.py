@@ -1,19 +1,12 @@
-from django.contrib.auth import authenticate, login, logout
 from django.conf import settings
-
+from rest_framework import status
+from rest_framework import serializers
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import serializers
-from rest_framework import status
-
-# import rest_framework_jwt.views
-
-from rest_framework_jwt.views import ObtainJSONWebTokenView
-
 from applications.api.mixins import ApiAuthMixin
-
+from rest_framework_jwt.views import ObtainJSONWebTokenView
+from django.contrib.auth import authenticate, login, logout
 from applications.authentication.services import auth_logout
-
 from applications.account.selectors import user_get_login_data
 
 

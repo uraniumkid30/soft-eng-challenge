@@ -1,7 +1,6 @@
 import sys
 import os
 import traceback
-import csv
 import logging
 import traceback
 from os import listdir

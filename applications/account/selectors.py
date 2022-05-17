@@ -23,9 +23,5 @@ def user_list(*, filters=None) -> QuerySet[User]:
 
 
 def get_user(**filters) -> User:
-    try:
-        user = User.objects.get(**filters)
-    except:
-        user = None
-    finally:
-        return user
+    user = User.objects.filter(**filters)
+    return user.first()

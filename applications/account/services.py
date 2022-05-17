@@ -62,12 +62,3 @@ def create_collection_of_user_data(number_of_users: int) -> list:
             data.update({"is_active": True})
             _names.append(User(**data))
     return _names
-
-
-@transaction.atomic
-def user_create_bulk(
-    user_list: list,
-) -> User:
-    users = User.objects.bulk_create(*user_list)
-
-    return users

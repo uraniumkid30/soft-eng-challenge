@@ -19,8 +19,8 @@ class BaseUserManager(BUM):
         last_name: str = None,
         name: str = None,
     ):
-        if not username:
-            raise ValueError("Users must have an email address")
+        # if not name:
+        #     raise ValueError("Users must have an name")
 
         user: User = self.model(
             username=username,

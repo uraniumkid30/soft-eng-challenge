@@ -13,7 +13,7 @@ admin.site.unregister(Group)
 
 
 class UserAdmin(BaseUserAdmin):
-    list_display = ["id", "email", "first_name", "last_name", "role", "ship"]
+    list_display = ["id", "first_name", "last_name", "role", "ship"]
     fieldsets = (
         (None, {"fields": ("username", "password")}),
         (

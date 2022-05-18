@@ -1,0 +1,11 @@
+[tool.poetry]
+name = "SHIPYARD_PROJECT"
+version = "0.1.0"
+description = "Contribution to Fork of flugel it project"
+authors = ["Christopher Okoro <christopherokoro007@gmail.com>"]
+maintainers = ["Christopher Okoro <christopherokoro007@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"

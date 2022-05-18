@@ -2,7 +2,7 @@
 FROM python:3
 ENV PYTHONUNBUFFERED=1
 WORKDIR /
-COPY ./requirements/prod.txt .
+COPY ./requirements/development.txt .
 RUN pip install -r prod.txt
 COPY . .
 

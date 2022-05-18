@@ -61,3 +61,21 @@ Complete the following checklist
 
 1. localhost:8000/docs/
 2. localhost:8000/schema/ #downloadable yaml version
+
+#### First Time Server Run
+
+1. chmod a+rwx scripts/local/run_server.sh
+2. ./scripts/local/run_server.sh
+
+#### Consecutive Server Run
+
+1. ./scripts/local/run_server.sh
+
+#### First Time Test Run
+
+1. chmod a+rwx scripts/local/run_server_test.sh
+2. ./scripts/local/run_server_test.sh
+
+#### Consecutive Test Run
+
+1. ./scripts/local/run_server_test.sh
